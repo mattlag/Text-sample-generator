@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Pair list generator</title>
+	<!-- <script src="english_10/english_10_dictionary.js"></script> -->
+	<script src="english_50/english_50_dictionary.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('run').addEventListener('click', run);
+		});
+			
+		async function run() {
+			console.log('Running...');
+			let testArr = dictionaryEnglish50.split('\n');
+			// let inputArea = document.getElementById('input');
+			// inputArea.innerHTML = testArr;
+
+			// Generate pairs
+			let resultsLookup = {};
+			let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+			console.time();
+			for(let t1=0; t1 < alphabet.length; t1++){
+				for(let t2=0; t2 < alphabet.length; t2++){
+					let pair = `${alphabet.charAt(t1)}${alphabet.charAt(t2)}`;
+					resultsLookup[pair] = {pair: pair, words: []};
+					testArr.forEach((word, index) => {
+						if(word.indexOf(pair) > -1) {
+							resultsLookup[pair].words.push(word);
+						}
+						// status(`${index} of ${testArr.length}`);
+					});
+				}
+			}
+			
+			let resultsArray = [];
+			let unusedArray = [];
+			let shortestArray = [];
+			for(pair of Object.keys(resultsLookup)) {
+				resultsArray.push(resultsLookup[pair]);
+				if(resultsLookup[pair].words.length === 0) {
+					unusedArray.push(pair);
+					delete resultsLookup[pair];
+				} else {
+					shortestArray.push(getShortestWord(resultsLookup[pair].words));
+				}
+			}
+			resultsArray.sort((a, b) => a.words.length - b.words.length);
+			
+			document.getElementById('pairList').innerHTML = JSON.stringify(resultsLookup).replaceAll(']},"', ']},\n"');
+			document.getElementById('sortedList').innerHTML = JSON.stringify(resultsArray).replaceAll('},{', '},\n{');
+			document.getElementById('shortest').innerHTML = shortestArray.toString();
+			document.getElementById('unused').innerHTML = unusedArray.toString();
+			
+			console.log('\n resultsLookup');
+			console.log(resultsLookup);
+			console.log('\n resultsArray');
+			console.log(resultsArray);
+			console.log('\n shortestArray');
+			console.log(shortestArray);
+			console.log('\n unusedArray');
+			console.log(unusedArray);
+			
+			console.timeEnd();
+			console.log('Done!');
+		}
+
+		function getShortestWord(array) {
+			let shortest = array[0];
+			array.forEach((word) => {
+				if (word.length < shortest.length) shortest = word;
+			});
+			return shortest;
+		}
+	</script>
+	<style>
+		textarea {
+			min-height: 200px;
+			width: 90%;
+			border: 1px solid slategray;
+			margin: 10px;
+			font-family: monospace;
+		}
+		button {
+			margin: 10px;
+		}
+		h2 {
+			margin: 20px 0px 0px 10px;
+			font-family: sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<button id="run">Run</button><br>
+	<h2>Pair list object</h2>
+	<textarea id="pairList">...</textarea>
+	<h2>Sorted array</h2>
+	<textarea id="sortedList">...</textarea>
+	<h2>Shortest word from each result</h2>
+	<textarea id="shortest">...</textarea>
+	<h2>Unused pairs</h2>
+	<textarea id="unused">...</textarea>
+</body>
+</html>

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+cat l/upper/*                                      \
+  | src/filter                                     \
+  | grep "^[A-Z]"                                  \
+  | src/find-ss working/all.lst                    \
+  | sort -u                                        \
+  | comm -23 - r/special/not-upper                 \
+  | src/add-other-spellings                        \
+  | sort -u                                        \
+  > working/known-upper.lst
+

@@ -1,0 +1,166 @@
+This directory contains numerous special word list which I have
+created myself.
+
+abbreviations:
+
+A list of commonly used abbreviations and acronyms, especially in
+conversational text such as email.
+
+abbreviations-also:
+
+Some additional abbreviations which I did not want to include at the
+lower word list sizes.
+
+frequent:
+
+A combination of the two top 1000 lists found in the mwords package.
+I carefully went though and weeded out words which where an artifact
+of the corpus used.
+
+letters:
+
+A list of single letters and there inflected forms
+
+names.from_alan_beale:
+
+A list of names (version 5.2) sent to be by Alan Beale <biljir@pobox.com>:
+
+  I have a large list of proper names, whose origins are in the
+  linux-words proper names, but which both removes a lot of (what I
+  considered to be) junk entries, and adds a lot of names of various
+  sorts, notably names of commercial products and noteworthy
+  historical personages.
+
+never-abbreviations:
+
+A list of words that I do not consider abbreviations.
+
+never-variant:
+
+A list of words I do not consider variants.
+
+not-possessive:
+
+A list of nouns which should not take a possessive form with "'s".
+
+proper-names:
+
+A list of additional proper names.
+
+roman-numerals:
+
+A list of roman numerous originally extracted from the ispell word
+lists.
+
+signature.35:
+
+A small list of words that I thought really ought to be at the 35 level.
+
+signature.??:
+
+Additional words to add at the respective level.
+
+marco-alan.??:
+
+Words Marco A.G.Pinto proposed to add that Alan Beale also thought
+should be added.  Words with 3 stars or more (see
+app.aspell.net:/lookup-freq) are added at the 60 and others at the 70
+level.
+
+mozilla-alan.60:
+
+Words found in the Mozilla dictionary than Alan also approved of.
+
+extra.??:
+
+Non-signature words suggested for inclusion by others that are
+recognized by most dictionaries but not all that common.
+
+macro-alan.70:
+
+Words Marco A.G.Pinto and Alan Beale though should be added that I
+(Kevin Atkinson) for one reason or another didn't want to add at the
+60 level.  The most likely reasons are that the word is too similar to
+a more common word or a compound word that is normally spelled as two
+words or with a hyphen.
+
+macro.80:
+
+Words that are Macro added to en_GB not in one of the above lists.
+
+unix-terms:
+
+A list of commonly used unix terms often used as regular english words
+by geeks.
+
+variant:
+
+A list of words which the 12dicts package does not consider variants
+but I do.
+
+not-upper:
+
+Normal words that just happen to start with an uppercase words and 
+have no relation to a proper name, for example OK AWOL
+
+2800-ptr:
+
+Words from "2800 Personality Trait Descriptors" (1967), see
+https://sourceforge.net/p/wordlist/issues/60/
+
+exclude.??:
+
+Words to exclude up to the specified level (and hence bump them to the
+next level.)  Used mostly for obscure words that are very similar to a
+far more common word and hence could mask the misspelling of the more
+common word.
+
+hacker-exclude:
+
+List of words found in the hacker category that are not found anywhere
+in Google Book's corpus (1980-2008) and thus should in all likelihood
+not be included considering "words" such as FTPing, grepped, etc. are
+in the corpus.
+
+prefixes:
+
+Common prefixes that are often followed used with a dash.  For example
+"multi-".  Note "pre" is left out as it is too close to "per" which is more
+common.
+
+phrase-parts:
+
+Parts of common (generally Latin) phrases that are not normal words
+themselfs.
+
+australian.35:
+
+A list of extra Australian words added at the 35 level to the
+"australian" spelling category.
+
+chinese-names:
+chinese-names.also:
+
+A list of Chinese names from https://github.com/en-wl/wordlist/issues/203.
+The ".also" file contains two word names I have not decided how to process.
+
+cs.60
+
+Common words found in Software Development and Computer Science contexes.
+
+urban-areas:
+
+U.S Urban areas as defined by the U.S. Census Bureau.
+
+Source https://www2.census.gov/geo/docs/reference/ua/ua_list_ua.txt (2019-08).
+
+australian-towns:
+australian-towns-part:
+
+List of cities in Australia from
+https://en.wikipedia.org/wiki/List_of_cities_in_Australia_by_population
+(2019-09-24).
+
+neol2020:
+
+A small list of Neologisms sent to be by Alan.
