@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<title>Pair list generator</title>
-	<!-- <script src="english_10/english_10_dictionary.js"></script> -->
-	<script src="english_50/english_50_dictionary.js"></script>
+	<!-- <script src="english_95/english_95_dictionary.js"></script> -->
+	<script src="swadesh_207/swadesh_207_dictionary.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 			document.getElementById('run').addEventListener('click', run);
@@ -11,7 +11,8 @@
 			
 		async function run() {
 			console.log('Running...');
-			let testArr = dictionaryEnglish50.split('\n');
+			// let testArr = dictionaryEnglish95.split('\n');
+			let testArr = dictionarySwadesh207.split('\n');
 			// let inputArea = document.getElementById('input');
 			// inputArea.innerHTML = testArr;
 
@@ -45,6 +46,7 @@
 				}
 			}
 			resultsArray.sort((a, b) => a.words.length - b.words.length);
+			shortestArray = shortestArray.filter((word, index) => shortestArray.indexOf(word, index) > 0);
 			
 			document.getElementById('pairList').innerHTML = JSON.stringify(resultsLookup).replaceAll(']},"', ']},\n"');
 			document.getElementById('sortedList').innerHTML = JSON.stringify(resultsArray).replaceAll('},{', '},\n{');
