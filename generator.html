@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
 	<title>Pair list generator</title>
-	<!-- <script src="english_95/english_95_dictionary.js"></script> -->
+	<script src="english_10/english_10_dictionary.js"></script>
+	<script src="english_50/english_50_dictionary.js"></script>
+	<script src="english_95/english_95_dictionary.js"></script>
 	<script src="swadesh_207/swadesh_207_dictionary.js"></script>
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-			document.getElementById('run').addEventListener('click', run);
-		});
-			
-		async function run() {
+	<script>			
+		async function run(dictionary) {
 			console.log('Running...');
-			// let testArr = dictionaryEnglish95.split('\n');
-			let testArr = dictionarySwadesh207.split('\n');
-			// let inputArea = document.getElementById('input');
-			// inputArea.innerHTML = testArr;
+			console.log(`dictionary: ${dictionary}`);
+			let testArr = [];
+			if(dictionary === 'swadesh') testArr = dictionarySwadesh207.split('\n');
+			if(dictionary === 'english_10') testArr = dictionaryEnglish10.split('\n');
+			if(dictionary === 'english_50') testArr = dictionaryEnglish50.split('\n');
+			if(dictionary === 'english_95') testArr = dictionaryEnglish95.split('\n');
+			console.log(`testArr: ${testArr.toString()}`);
 
 			// Generate pairs
 			let resultsLookup = {};
+			let frequencyLookup = {};
 			let alphabet = 'abcdefghijklmnopqrstuvwxyz';
 			console.time();
 			for(let t1=0; t1 < alphabet.length; t1++){
@@ -27,6 +29,8 @@
 					testArr.forEach((word, index) => {
 						if(word.indexOf(pair) > -1) {
 							resultsLookup[pair].words.push(word);
+							if(!frequencyLookup[word]) frequencyLookup[word] = 0;
+							frequencyLookup[word]++;
 						}
 						// status(`${index} of ${testArr.length}`);
 					});
@@ -36,6 +40,7 @@
 			let resultsArray = [];
 			let unusedArray = [];
 			let shortestArray = [];
+			let highestFrequencyArray = [];
 			for(pair of Object.keys(resultsLookup)) {
 				resultsArray.push(resultsLookup[pair]);
 				if(resultsLookup[pair].words.length === 0) {
@@ -43,20 +48,26 @@
 					delete resultsLookup[pair];
 				} else {
 					shortestArray.push(getShortestWord(resultsLookup[pair].words));
+					highestFrequencyArray.push(getMostFrequentlyUsedWord(resultsLookup[pair].words, frequencyLookup));
 				}
 			}
 			resultsArray.sort((a, b) => a.words.length - b.words.length);
-			shortestArray = shortestArray.filter((word, index) => shortestArray.indexOf(word, index) > 0);
+			shortestArray = shortestArray.filter(duplicates);
+			highestFrequencyArray = highestFrequencyArray.filter(duplicates)
 			
+			document.getElementById('frequent').innerHTML = highestFrequencyArray.toString().replaceAll(',', ' ');
+			document.getElementById('shortest').innerHTML = shortestArray.toString().replaceAll(',', ' ');
 			document.getElementById('pairList').innerHTML = JSON.stringify(resultsLookup).replaceAll(']},"', ']},\n"');
+			document.getElementById('frequencyList').innerHTML = JSON.stringify(frequencyLookup).replaceAll(',"', ',\n"').replaceAll(':', ':  \t');
 			document.getElementById('sortedList').innerHTML = JSON.stringify(resultsArray).replaceAll('},{', '},\n{');
-			document.getElementById('shortest').innerHTML = shortestArray.toString();
-			document.getElementById('unused').innerHTML = unusedArray.toString();
+			document.getElementById('unused').innerHTML = unusedArray.toString().replaceAll(',', ', ');
 			
 			console.log('\n resultsLookup');
 			console.log(resultsLookup);
 			console.log('\n resultsArray');
 			console.log(resultsArray);
+			console.log('\n highestFrequencyArray');
+			console.log(highestFrequencyArray);
 			console.log('\n shortestArray');
 			console.log(shortestArray);
 			console.log('\n unusedArray');
@@ -66,12 +77,27 @@
 			console.log('Done!');
 		}
 
+		function duplicates(v, i, a) {
+			return a.indexOf(v) === i;
+		}
+
 		function getShortestWord(array) {
 			let shortest = array[0];
 			array.forEach((word) => {
 				if (word.length < shortest.length) shortest = word;
 			});
 			return shortest;
+		}
+
+		function getMostFrequentlyUsedWord(array, frequencyLookup) {
+			array = array.sort((a, b) => a-b);
+			let mostFrequent = array[0];
+			array.forEach((word) => {
+				if (frequencyLookup[word] > frequencyLookup[mostFrequent]) {
+					mostFrequent = word;
+				}
+			});
+			return mostFrequent;
 		}
 	</script>
 	<style>
@@ -83,22 +109,35 @@
 			font-family: monospace;
 		}
 		button {
-			margin: 10px;
+			margin: 10px 20px 10px 0px;
 		}
-		h2 {
+		h1, h2 {
 			margin: 20px 0px 0px 10px;
 			font-family: sans-serif;
 		}
 	</style>
 </head>
 <body>
-	<button id="run">Run</button><br>
-	<h2>Pair list object</h2>
-	<textarea id="pairList">...</textarea>
-	<h2>Sorted array</h2>
-	<textarea id="sortedList">...</textarea>
+
+	<button id="run" onClick="run('swadesh');">Swadesh 207</button>
+	<button id="run" onClick="run('english_10');">English 10</button>
+	<button id="run" onClick="run('english_50');">English 50</button>
+	<button id="run" onClick="run('english_95');">English 95</button>
+	<br>
+
+	<h1>Results</h1>
+	<h2>Using the words that contain the most pairs</h2>
+	<textarea id="frequent">...</textarea>
 	<h2>Shortest word from each result</h2>
 	<textarea id="shortest">...</textarea>
+	<h1>Data</h1>
+
+	<h2>Pair list object</h2>
+	<textarea id="pairList">...</textarea>
+	<h2>Frequency list object</h2>
+	<textarea id="frequencyList">...</textarea>
+	<h2>Sorted array</h2>
+	<textarea id="sortedList">...</textarea>
 	<h2>Unused pairs</h2>
 	<textarea id="unused">...</textarea>
 </body>
