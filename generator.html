@@ -4,6 +4,7 @@
 	<title>Pair list generator</title>
 	<script src="english_10/english_10_dictionary.js"></script>
 	<script src="english_50/english_50_dictionary.js"></script>
+	<script src="english_70/english_70_dictionary.js"></script>
 	<script src="english_95/english_95_dictionary.js"></script>
 	<script src="swadesh_207/swadesh_207_dictionary.js"></script>
 	<script>			
@@ -14,6 +15,7 @@
 			if(dictionary === 'swadesh') testArr = dictionarySwadesh207.split('\n');
 			if(dictionary === 'english_10') testArr = dictionaryEnglish10.split('\n');
 			if(dictionary === 'english_50') testArr = dictionaryEnglish50.split('\n');
+			if(dictionary === 'english_70') testArr = dictionaryEnglish70.split('\n');
 			if(dictionary === 'english_95') testArr = dictionaryEnglish95.split('\n');
 			console.log(`testArr: ${testArr.toString()}`);
 
@@ -122,6 +124,7 @@
 	<button id="run" onClick="run('swadesh');">Swadesh 207</button>
 	<button id="run" onClick="run('english_10');">English 10</button>
 	<button id="run" onClick="run('english_50');">English 50</button>
+	<button id="run" onClick="run('english_70');">English 70</button>
 	<button id="run" onClick="run('english_95');">English 95</button>
 	<br>
 
