@@ -17,12 +17,13 @@
 			if(dictionary === 'english_50') testArr = dictionaryEnglish50.split('\n');
 			if(dictionary === 'english_70') testArr = dictionaryEnglish70.split('\n');
 			if(dictionary === 'english_95') testArr = dictionaryEnglish95.split('\n');
-			console.log(`testArr: ${testArr.toString()}`);
+			// console.log(`testArr: ${testArr.toString()}`);
 
 			// Generate pairs
 			let resultsLookup = {};
-			let frequencyLookup = {};
+			let shortestWordsLookup = {};
 			let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+			console.log(`alphabet ${alphabet.length}: ${alphabet}`);
 			console.time();
 			for(let t1=0; t1 < alphabet.length; t1++){
 				for(let t2=0; t2 < alphabet.length; t2++){
@@ -31,8 +32,8 @@
 					testArr.forEach((word, index) => {
 						if(word.indexOf(pair) > -1) {
 							resultsLookup[pair].words.push(word);
-							if(!frequencyLookup[word]) frequencyLookup[word] = 0;
-							frequencyLookup[word]++;
+							if(!shortestWordsLookup[word]) shortestWordsLookup[word] = 0;
+							shortestWordsLookup[word]++;
 						}
 						// status(`${index} of ${testArr.length}`);
 					});
@@ -41,26 +42,26 @@
 			
 			let resultsArray = [];
 			let unusedArray = [];
-			let shortestArray = [];
-			let highestFrequencyArray = [];
+			let shortestWordsArray = [];
+			let leastWordsArray = [];
 			for(pair of Object.keys(resultsLookup)) {
 				resultsArray.push(resultsLookup[pair]);
 				if(resultsLookup[pair].words.length === 0) {
 					unusedArray.push(pair);
 					delete resultsLookup[pair];
 				} else {
-					shortestArray.push(getShortestWord(resultsLookup[pair].words));
-					highestFrequencyArray.push(getMostFrequentlyUsedWord(resultsLookup[pair].words, frequencyLookup));
+					shortestWordsArray.push(getShortestWord(resultsLookup[pair].words));
+					leastWordsArray.push(getMostFrequentlyUsedWord(resultsLookup[pair].words, shortestWordsLookup));
 				}
 			}
 			resultsArray.sort((a, b) => a.words.length - b.words.length);
-			shortestArray = shortestArray.filter(duplicates);
-			highestFrequencyArray = highestFrequencyArray.filter(duplicates)
+			shortestWordsArray = shortestWordsArray.filter(duplicates);
+			leastWordsArray = leastWordsArray.filter(duplicates)
 			
-			document.getElementById('frequent').innerHTML = highestFrequencyArray.toString().replaceAll(',', ' ');
-			document.getElementById('shortest').innerHTML = shortestArray.toString().replaceAll(',', ' ');
+			document.getElementById('least').innerHTML = leastWordsArray.toString().replaceAll(',', ' ');
+			document.getElementById('shortest').innerHTML = shortestWordsArray.toString().replaceAll(',', ' ');
 			document.getElementById('pairList').innerHTML = JSON.stringify(resultsLookup).replaceAll(']},"', ']},\n"');
-			document.getElementById('frequencyList').innerHTML = JSON.stringify(frequencyLookup).replaceAll(',"', ',\n"').replaceAll(':', ':  \t');
+			document.getElementById('shortestLookup').innerHTML = JSON.stringify(shortestWordsLookup).replaceAll(',"', ',\n"').replaceAll(':', ':  \t');
 			document.getElementById('sortedList').innerHTML = JSON.stringify(resultsArray).replaceAll('},{', '},\n{');
 			document.getElementById('unused').innerHTML = unusedArray.toString().replaceAll(',', ', ');
 			
@@ -68,10 +69,10 @@
 			console.log(resultsLookup);
 			console.log('\n resultsArray');
 			console.log(resultsArray);
-			console.log('\n highestFrequencyArray');
-			console.log(highestFrequencyArray);
-			console.log('\n shortestArray');
-			console.log(shortestArray);
+			console.log('\n leastWordsArray');
+			console.log(leastWordsArray);
+			console.log('\n shortestWordsArray');
+			console.log(shortestWordsArray);
 			console.log('\n unusedArray');
 			console.log(unusedArray);
 			
@@ -91,11 +92,11 @@
 			return shortest;
 		}
 
-		function getMostFrequentlyUsedWord(array, frequencyLookup) {
+		function getMostFrequentlyUsedWord(array, shortestWordsLookup) {
 			array = array.sort((a, b) => a-b);
 			let mostFrequent = array[0];
 			array.forEach((word) => {
-				if (frequencyLookup[word] > frequencyLookup[mostFrequent]) {
+				if (shortestWordsLookup[word] > shortestWordsLookup[mostFrequent]) {
 					mostFrequent = word;
 				}
 			});
@@ -129,16 +130,16 @@
 	<br>
 
 	<h1>Results</h1>
-	<h2>Using the words that contain the most pairs</h2>
-	<textarea id="frequent">...</textarea>
-	<h2>Shortest word from each result</h2>
+	<h2>Least words</h2>
+	<textarea id="least">...</textarea>
+	<h2>Shortest words</h2>
 	<textarea id="shortest">...</textarea>
 	<h1>Data</h1>
 
 	<h2>Pair list object</h2>
 	<textarea id="pairList">...</textarea>
 	<h2>Frequency list object</h2>
-	<textarea id="frequencyList">...</textarea>
+	<textarea id="shortestLookup">...</textarea>
 	<h2>Sorted array</h2>
 	<textarea id="sortedList">...</textarea>
 	<h2>Unused pairs</h2>
