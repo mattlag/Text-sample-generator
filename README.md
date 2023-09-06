@@ -2,8 +2,9 @@
  Find the smallest collection of words that 
  contains the most letter pair combinations.
 
-For a given set of words (dictionary), there will be some letter pairs 
-that never occur. Even within this maximum letter pair coverage per dictionary, 
+For a given set of words (dictionary), and a given alphabet (in this case we use basic 
+latin lowercase alphabet), there will be some letter pairs from the alphabet 
+that never occur in the dictionary. Even within this maximum letter pair coverage per dictionary, 
 there are multiple "result" paragraphs that contain all possible letter 
 pairs for that dictionary. This tool includes two automatically generated 
 result paragraphs per dictionary: one paragraph that favors words with many 
@@ -13,11 +14,11 @@ Here are the links to all the results for every dictionary, in text file format:
 
 | dictionary | source words | result text file | resulting words | unused letter pairs |
 | --- | --- | --- | --- | --- |
-| **swadesh_207** | 207   | [swadesh_207_result_least_words.txt](swadesh_207/swadesh_207_result_least_words.txt)<br>[swadesh_207_result_shortest_words.txt](swadesh_207/swadesh_207_result_shortest_words.txt) | 102<br>127 | 480 (29%) |
-| **english_10** | ~4,000   | [english_10_result_least_words.txt](english_10/english_10_result_least_words.txt)<br>[english_10_result_shortest_words.txt](english_10/english_10_result_shortest_words.txt) | 215<br>331 | 302 (55%)|
-| **english_50** | ~17,000  | [english_50_result_least_words.txt](english_50/english_50_result_least_words.txt)<br>[english_50_result_shortest_words.txt](english_50/english_50_result_shortest_words.txt) | 327<br>437 | 158 (77%) |
-| **english_70** | ~112,500  | [english_70_result_least_words.txt](english_70/english_70_result_least_words.txt)<br>[english_70_result_shortest_words.txt](english_70/english_70_result_shortest_words.txt) | 388<br>587 | 78 (88%) |
-| **english_95** | ~180,000 | [english_95_result_least_words.txt](english_95/english_95_result_least_words.txt)<br>[english_95_result_shortest_words.txt](english_95/english_95_result_shortest_words.txt) | 427<br>589 | 30 (96%) |
+| **swadesh_207** | 207   | [swadesh_207_result_least_words.txt](swadesh_207/swadesh_207_result_least_words.txt)<br>[swadesh_207_result_shortest_words.txt](swadesh_207/swadesh_207_result_shortest_words.txt) | 102<br>127 | 480 (71%) |
+| **english_10** | ~4,000   | [english_10_result_least_words.txt](english_10/english_10_result_least_words.txt)<br>[english_10_result_shortest_words.txt](english_10/english_10_result_shortest_words.txt) | 215<br>331 | 302 (45%)|
+| **english_50** | ~17,000  | [english_50_result_least_words.txt](english_50/english_50_result_least_words.txt)<br>[english_50_result_shortest_words.txt](english_50/english_50_result_shortest_words.txt) | 327<br>437 | 158 (23%) |
+| **english_70** | ~112,500  | [english_70_result_least_words.txt](english_70/english_70_result_least_words.txt)<br>[english_70_result_shortest_words.txt](english_70/english_70_result_shortest_words.txt) | 388<br>587 | 78 (12%) |
+| **english_95** | ~180,000 | [english_95_result_least_words.txt](english_95/english_95_result_least_words.txt)<br>[english_95_result_shortest_words.txt](english_95/english_95_result_shortest_words.txt) | 427<br>589 | 30 (4%) |
 
 As an observation, the larger word sets do result in covering more letter pairs... but these word lists are full of very obscure words. So, more coverage definitely comes at the cost of leveraging words that you've probably never seen before. On the other hand, if you want to make some sort of recognizable paragraph of words, the ultra-low end Swadesh dictionary or English 10 dictionary may be the way to go.
 
