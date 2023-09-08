@@ -2,6 +2,12 @@
  Find the smallest collection of words that 
  contains the most letter pair combinations.
 
+This repo has two tools: a `Generator` which creates a lot of data objects and 2 
+result paragraphs based on a dictionary,
+and a `Paragraph builder` which uses this data to help build custom result paragraphs.
+
+## Generator tool
+
 For a given set of words (dictionary), and a given alphabet (in this case we use basic 
 latin lowercase alphabet), there will be some letter pairs from the alphabet 
 that never occur in the dictionary. Even within this maximum letter pair coverage per dictionary, 
@@ -24,7 +30,7 @@ As an observation, the larger word sets do result in covering more letter pairs.
 
 You can email [matt@mattlag.com](matt@mattlag.com) with any questions or comments.
 
-# Results
+### Results
 With the goal of having closely resembling a "normal" paragraph of text with the most 
 letter pair coverage, personally I'm going to use the results from the English 10 set. 
 Yes, the coverage is less than other results, but starting with the English 50 set, 
@@ -37,6 +43,27 @@ the majority of words are just too odd.
 **English 10: Shortest Words**
 
 > able act add leaf age ahead aid major make all am an chaos gap are as at cause gave law tax day lazy bad rubber be bid object submit box brand jobs doubt bug obvious by can occur ice char city back club code acquire cry cs cup cycle feedback broadcast edge did adjust badly admit midnight do dry adds due advice hardware body eat debate neck bed see left leg behalf being reject seek cell deem end video deep equal err hes bet queue even few sex eye fan fed off fit fly for fry fun modify meaningful bigger high girl glad sign go grew bugs length gun apology had forthcoming withdraw he hid highly algorithm technical hot three months eight huge worthwhile why via library die if big like ill aim in prior chip unique air is it medium five fix size job jump package key background kid quickly knew asks awkward lucky album welcome old led half lie bulk film log help already also felt blue solve always mad dumb me harmful mix firmly common autumn mod dump aims much my name inch and net info hang unhappy nice enjoy bank only government annoy no input unreasonable runs cent numb invent unwanted any boat lock doe of dog oh oil project book come on too pop or cost got our love how boy dozen pay update pen helpful graph pi plan equipment apple press chips kept put upwards copy quit ran nearby force card re perfect argue perhaps rid dark arm turn row sharp bars art run serve forward sad husband disc satisfy she sit ask slip small so spot square less best sum answer busy catch ate doubtful the tie title treatment to output try its putt tune two luck judge stuff quote up us but buy van vote heavy war we awful who win slowly own write laws growth exact except boxes exist expand next maybe dying style symbol syntax you type buys byte anyway bizarre
+
+## Paragraph builder tool
+The Generator creates two flavors of "result paragraphs"... but what if these paragraphs
+don't quite meet your expectations? The Paragraph builder tool lets you use data generated 
+by the Generator to build a custom paragraph for yourself.
+
+The Paragraph builder has 3 columns:
+ 1. Pairs checklist - this keeps track of the letter pairs in your paragraph. Either displaying an ❌ if the pair is missing, or displaying a count of how many times that pair occurs.
+ 2. Word list - these are words from your dictionary, sorted by letter pair. So, each word may show up more than once in the overall list. Each word is a button, and clicking it will add that word to your result paragraph. Each word also has a "word score" number on it. This tells you how many letter pairs this word would cover, if you select it. Every time you add a word, the "word score" for each word is re-calculated.
+ 3. Result paragraph - this is where your result is displayed. It also has buttons for every word, clicking these will remove that word from your result paragraph.
+
+The overall process is just scrolling through the word list, and choosing what words you 
+want to add to your paragraph... based on whatever criteria you want.
+
+**NOTE** The Paragraph Builder tool uses the `English 10` dictionary. Also included in the 
+html file is the `English 50` dictionary: you will have to edit the html file to disable 
+one dictionary and enable the other. Overall, this tool is *very* slow. The `English 10` 
+dictionary is small, and even it is slow. the `English 50` dictionary will take many 
+seconds after each click on fast computers. This is why the tool does not include any 
+of the larger dictionaries and just defaults to the small one.
+
 
 # Fun facts
 Hopefully the results will be useful, but there are also some results that are just interesting. Here are a few:
@@ -92,10 +119,6 @@ Given some dictionary of words, we'll brute force look for pairs of letters,
 and as a second step, be able to assemble paragraphs of text that 
 contains as many of the letter pairs as possible.
 
-## Next steps
-I may create another tool that lets you choose a dictionary, then begin choosing words while
-letter pairs are checked off. This way some sort of 'custom' paragraph can be generated that
-is somewhere in between the automatically generated 'least words' and 'shortest words' results.
 ## Source
 Word lists will be pulled from SCOWL ([wordlist.aspell.net](http://wordlist.aspell.net/)), which is:
   
@@ -106,4 +129,3 @@ Word lists will be pulled from SCOWL ([wordlist.aspell.net](http://wordlist.aspe
 These word lists are divided into categories that correspond to length. Sub-directories in this 
 project are named to correspond to these, for example: `english_10`, `english_50`, `english_70`, 
 and `english_95`.
-
