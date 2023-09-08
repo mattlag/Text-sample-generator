@@ -93,7 +93,8 @@
 				wordButtons += `<button onclick="removeWord('${word}');">${word}</button>`;
 			});
 			
-			document.getElementById('paragraph').innerHTML = wordButtons;
+			let wordText = `<br><br><span>${paragraphWords.join(' ')}</span>`;
+			document.getElementById('paragraph').innerHTML = wordButtons + wordText;
 		}
 
 		function removeWord(word) {
@@ -121,9 +122,9 @@
 
 			let total = alphabet.length * alphabet.length;
 			document.getElementById('status').innerHTML = `
-				Pairs covered:\t ${pairCount}<br>
-				Possible pairs:\t ${availableCount}<br>
-				All pairs:\t ${total}`;
+Pairs covered:\t ${pairCount}
+Possible pairs:\t ${availableCount}
+All pairs:\t ${total}`;
 		}
 
 		function updateChecklist() {
